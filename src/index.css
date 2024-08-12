@@ -10,12 +10,14 @@
   width: 100%;
 }
 
+
+
 .form-container {
-  display: flex;
+   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-}
+} 
 
 /* Loader */
 .loader-container{

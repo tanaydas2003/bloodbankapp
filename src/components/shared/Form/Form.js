@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { handleLogin, handleRegister } from '../../../services/authService';
 import InputType from './InputType';
 
@@ -29,12 +29,12 @@ const Form = ({ formType, submitBtn, formTitle }) => {
       formContent = (
         <>
           {(role === 'admin' || role === 'donar') && (
-          <InputType labelText={'Name'} labelFor={'forName'} inputType={'text'} name={'name'} value={name} onChange={(e) => setName(e.target.value)} />
+            <InputType labelText={'Name'} labelFor={'forName'} inputType={'text'} name={'name'} value={name} onChange={(e) => setName(e.target.value)} />
           )}
           <InputType labelText={'Email'} labelFor={'forEmail'} inputType={'email'} name={'email'} value={email} onChange={(e) => setEmail(e.target.value)} />
           <InputType labelText={'Password'} labelFor={'forPassword'} inputType={'password'} name={'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
           {(role === 'organisation') && (
-          <InputType labelText={'Organisation Name'} labelFor={'fororganisationName'} inputType={'text'} name={'organisationName'} value={organisationName} onChange={(e) => setOrganisationName(e.target.value)} />
+            <InputType labelText={'Organisation Name'} labelFor={'fororganisationName'} inputType={'text'} name={'organisationName'} value={organisationName} onChange={(e) => setOrganisationName(e.target.value)} />
           )}
           {(role === 'hospital') && (
             <InputType labelText={'Hospital Name'} labelFor={'forHospitalName'} inputType={'text'} name={'hospitalName'} value={hospitalName} onChange={(e) => setHospitalName(e.target.value)} />
@@ -65,12 +65,20 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               Donar
             </label>
           </div>
-          <div className="form-check ms-2">
+          {/* <div className="form-check ms-2">
             <input type="radio" className="form-check-input" id='adminRadio' name='role' value={'admin'} onChange={(e) => setRole(e.target.value)} />
             <label htmlFor="adminRadio" className='form-check-label'>
               Admin
             </label>
-          </div>
+          </div> */}
+          {formType === 'login' && (
+            <div className="form-check ms-2">
+              <input type="radio" className="form-check-input" id='adminRadio' name='role' value={'admin'} onChange={(e) => setRole(e.target.value)} />
+              <label htmlFor="adminRadio" className='form-check-label'>
+                Admin
+              </label>
+            </div>
+          )}
           <div className="form-check ms-2">
             <input type="radio" className="form-check-input" id='hospitalRadio' name='role' value={'hospital'} onChange={(e) => setRole(e.target.value)} />
             <label htmlFor="hospitalRadio" className='form-check-label'>
@@ -108,4 +116,8 @@ const Form = ({ formType, submitBtn, formTitle }) => {
 };
 
 export default Form;
+
+
+
+
 

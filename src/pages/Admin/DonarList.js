@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/shared/Layouts/Layout';
-import API from '../../services/API';
 import moment from 'moment';
+import API from '../../services/API';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,16 +10,17 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
 
 const columns = [
-  { id: 'hospitalName', label: 'Name', minWidth: 170 },
+  { id: 'name', label: 'Name', minWidth: 170 },
   { id: 'email', label: 'Email', minWidth: 170 },
   { id: 'phone', label: 'Phone', minWidth: 170 },
-  { id: 'address', label: 'Address', minWidth: 170 },
   { id: 'createdAt', label: 'Date', minWidth: 170, align: 'right', format: (value) => moment(value).format('DD/MM/YYYY hh:mm A') },
+  { id: 'action', label: 'Action', minWidth: 170, align: 'center' },
 ];
 
-export default function Hospital() {
+export default function DonarList() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -27,9 +28,9 @@ export default function Hospital() {
   useEffect(() => {
     const getDonars = async () => {
       try {
-        const response = await API.get('/inventory/get-hospitals');
+        const response = await API.get('/admin/donar-list');
         if (response.data?.success) {
-          setData(response.data?.hospitals);
+          setData(response.data?.donarData);
         }
       } catch (error) {
         console.log(error);
@@ -38,6 +39,18 @@ export default function Hospital() {
 
     getDonars();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      let answer = window.prompt("Are You Sure You Want To Delete This Donar", "Sure");
+      if (!answer) return;
+      const response = await API.delete(`/admin/delete-donar/${id}`);
+      alert(response.data?.message);
+      setData(data.filter((record) => record._id !== id)); // Update the state directly instead of reloading the page
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -79,6 +92,19 @@ export default function Hospital() {
                   <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
                     {columns.map((column) => {
                       const value = row[column.id];
+                      if (column.id === 'action') {
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            <Button
+                              variant="contained"
+                              color="error"
+                              onClick={() => handleDelete(row._id)}
+                            >
+                              Delete
+                            </Button>
+                          </TableCell>
+                        );
+                      }
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {column.format && typeof value === 'string'

@@ -1,6 +1,6 @@
 .sidebar{
     height: 100vh !important;
-    /* background-color: #2e3200; */
+    background-color: #2e3200;
     background-color: #dc3545;
     box-shadow: 0 0 2px gray;
     color: white;
@@ -31,3 +31,7 @@
     /* color: #2e3200; */
     color: white;
 }
+
+
+  
+  

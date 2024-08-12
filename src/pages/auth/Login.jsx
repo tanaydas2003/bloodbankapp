@@ -17,6 +17,18 @@ const Login = () => {
           <Form formTitle={'Login Page'} submitBtn={'Login'} formType={'login'} />
         </div>
       </div>
+      {/* <div className="loginbody">
+        <div className="container columnlogin">
+          <div className="forms">
+            <div className="form-login">
+              <div className="form login">
+                <Form formTitle={'Login Page'} submitBtn={'Login'} formType={'login'} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
     {/* )} */}
     </>
   )
